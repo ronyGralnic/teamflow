@@ -7,8 +7,8 @@ import { TextEffect } from '@/components/ui/text-effect'
 import { AnimatedGroup } from '@/components/ui/animated-group'
 import { HeroHeader } from './header'
 import BackgroundImage from '@/public/night-background.jpg'
-import HeroLight from '@/public/screenshot-light.png'
-import HeroDark from '@/public/screenshot-dark.png'
+import HeroLight from '@/public/screenshot-light.jpg'
+import HeroDark from '@/public/screenshot-dark.jpg'
 
 //more imgs imports
 import ArjectLogo from '@/public/companies/arject.png'
