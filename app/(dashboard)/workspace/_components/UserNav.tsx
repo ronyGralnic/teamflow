@@ -1,26 +1,33 @@
+"use client";
+
 import { AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { getAvatar } from "@/lib/get-avatar";
+import { orpc } from "@/lib/orpc";
 import { LogoutLink, PortalLink} from "@kinde-oss/kinde-auth-nextjs/components";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { CreditCard, LogOut, User } from "lucide-react";
 import { email } from "zod";
 
 
-const user ={
-    picture : "https://avatars.githubusercontent.com/u/124599?v=4",
-    given_name : "Jan Marshal",
-    email: "yessir@hotmail.com"
-}
+
 export function UserNav(){
+    const {data: {user}} = useSuspenseQuery(
+        orpc.workspace.list.queryOptions()
+    );
+
+    console.log(user.picture)
+
     return (
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <Button variant="outline" size="icon" className="size-12 rounded-xl hover:rounded-lg transition-all duration-200 bg-background/50 border-border/50 hover:bg-accent hover:text-accent-foreground">
                     <Avatar>
-                        <AvatarImage src = {user.picture} alt = "User Image" className="object-cover" />
+                        <AvatarImage src = {getAvatar(user.picture, user.email!)} alt = "User Image" className="object-cover" />
                         <AvatarFallback>
-                            {user.given_name.slice(0,2).toUpperCase()}
+                            {user.given_name?.slice(0,2).toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
 
@@ -30,9 +37,9 @@ export function UserNav(){
 
                 <DropdownMenuLabel className="font-normal flex items-center gap-2 px-1 py-1.5 text-left-sm">
                      <Avatar className="relative size-8 rounded-lg">
-                        <AvatarImage src = {user.picture} alt = "User Image" className="object-cover" />
+                        <AvatarImage src = {getAvatar(user.picture, user.email!)} alt = "User Image" className="object-cover" />
                         <AvatarFallback>
-                            {user.given_name.slice(0,2).toUpperCase()}
+                            {user.given_name?.slice(0,2).toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
 
