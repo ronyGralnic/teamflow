@@ -9,10 +9,16 @@ import { Plus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {zodResolver} from '@hookform/resolvers/zod'
-import { workspaceScheme } from "@/app/schemas/workspace";
+import { WorkspaceSchemaType, workspaceScheme } from "@/app/schemas/workspace";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { orpc } from "@/lib/orpc";
+import { toast } from "sonner";
 
 export function CreateWorkspace() {
   const [open, setOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+
 
    // 1. Define your form.
   const form = useForm({
@@ -22,11 +28,34 @@ export function CreateWorkspace() {
     }
   })
 
- 
+  const CreateWorkspaceNutation = useMutation(
+    orpc.workspace.create.mutationOptions({
+
+      onSuccess: (newWorkspace) => {
+        toast.success(
+          'workspace ${newWorkspace.workspaceName} create successfully'
+        ); 
+        queryClient.invalidateQueries({
+          queryKey: orpc.workspace.list.queryKey(),
+
+        });
+        form.reset();
+
+        setOpen(false);
+
+        
+
+      },
+      onError: () => {
+        toast.error("Failed to creae  workspace, try again!")
+      }
+
+    })
+  )
   // 2. Define a submit handler.
-  function onSubmit() {
-    
-    console.log("data");
+  function onSubmit(values : WorkspaceSchemaType) {
+
+    CreateWorkspaceNutation.mutate(values)
   }
 
   return (
@@ -71,8 +100,8 @@ export function CreateWorkspace() {
                     </FormItem>
                   )} />
 
-                  <Button type="submit">
-                    Create Workspace
+                  <Button disabled= {CreateWorkspaceNutation.isPending} type="submit">
+                    {CreateWorkspaceNutation.isPending ? "Creating..." : "Create workspace"}
                   </Button>
             </form>    
         </Form>
