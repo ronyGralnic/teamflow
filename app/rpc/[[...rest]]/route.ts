@@ -16,7 +16,9 @@ const handler = new RPCHandler(router, {
 async function handleRequest(request: Request) {
   const { response } = await handler.handle(request, {
     prefix: '/rpc', // your RPC route prefix
-    context: {},    // optional context for shared data (auth, db, etc.)
+    context: {
+      request: request,
+    },    // optional context for shared data (auth, db, etc.)
   })
 
   return response ?? new Response('Not found', { status: 404 })
