@@ -1,0 +1,31 @@
+
+
+generator client {
+  provider = "prisma-client"
+  output   = "../lib/generated/prisma/client"
+}
+
+
+datasource db {
+  provider = "postgresql"
+ // url      = env("DATABASE_URL")
+}
+
+
+model Channel {
+  id String @id @default(uuid())
+
+  name String
+
+  createdAt DateTime @default(now())
+
+  updatedAt DateTime @updatedAt
+
+  //foreign keys: kinde ids
+  workspaceId String
+  createdById String 
+
+  @@unique ([workspaceId, name])
+
+}
+
