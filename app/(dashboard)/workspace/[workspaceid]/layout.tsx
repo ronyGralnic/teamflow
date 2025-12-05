@@ -70,6 +70,7 @@ const ChannelListLayout = async ({children} : {children : ReactNode}) => {
        
 
     </div>
+    {children}
     
 
 

@@ -1,19 +1,44 @@
+
+
 generator client {
   provider = "prisma-client"
-  output   = "../app/generated/prisma/client" // required in Prisma 7
+  output   = "../lib/generated/prisma/client"
 }
+
 
 datasource db {
   provider = "postgresql"
+ // url      = env("DATABASE_URL")
 }
 
+
 model Channel {
-  id String @id @default(uuid())
-  name String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String    @id @default(uuid())
+  name        String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
   workspaceId String
   createdById String 
 
+  messages    Message[] @relation("ChannelMessages")
+
   @@unique([workspaceId, name])
 }
+
+model Message {
+  id            String   @id @default(uuid())
+  content       String
+  imageUrl      String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  
+  authorId      String
+  authorEmail   String
+  authorName    String
+  authorAvatar  String
+
+  channel       Channel  @relation("ChannelMessages", fields: [channelId], references: [id])
+  channelId     String
+}
+
