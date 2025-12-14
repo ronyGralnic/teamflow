@@ -1,7 +1,10 @@
 
 import { RichTextEditor } from "@/components/rich-text-editor/Editor";
+import { ImageUploadModal } from "@/components/rich-text-editor/ImageUploadModal";
 import { Button } from "@/components/ui/button";
+import { useAttachmentUploadType } from "@/hooks/use-attachment-upload";
 import { ImageIcon, Send } from "lucide-react";
+import { AttachmentChip } from "./AttachmentChip";
 
 
 interface iAppProps {
@@ -10,12 +13,13 @@ interface iAppProps {
 
     onSubmit : () => void;
     isSubmitting? : boolean;
+    upload: useAttachmentUploadType;
 
 
      
 }
 
-export function MessageComposer({value, onChange, onSubmit, isSubmitting}:iAppProps){
+export function MessageComposer({value, onChange, onSubmit, isSubmitting, upload}:iAppProps){
     return (
         <>
         
@@ -28,13 +32,19 @@ export function MessageComposer({value, onChange, onSubmit, isSubmitting}:iAppPr
             </Button>
             }
             footerLeft = {
-                <Button type = "button" size ="sm" variant="outline">
+                upload.stagedUrl ? (
+                    <AttachmentChip url={upload.stagedUrl} onRemove={upload.clear}/>
+                ) : (
+                    <Button onClick={() => upload.setOpen(true)} type = "button" size ="sm" variant="outline">
                     <ImageIcon className="size-mr-1"/>
                     Attach
                 </Button>
+                )
             }
         
         />
+
+        <ImageUploadModal onUploaded = {(url) => upload.onUploaded(url)} open={upload.isOpen} onOpenChange={upload.setOpen}/>
         
         </>
     )
