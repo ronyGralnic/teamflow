@@ -1,7 +1,6 @@
 import arcjet, { createMiddleware, detectBot } from "@arcjet/next";
-import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { NextRequest, NextResponse } from "next/server";
-import { ur } from "zod/v4/locales";
+import {  withAuth } from "@kinde-oss/kinde-auth-nextjs/server";
+import { NextMiddleware, NextRequest, NextResponse } from "next/server";
 
 const aj = arcjet({
    key : process.env.ARCJET_KEY!,
@@ -20,21 +19,33 @@ const aj = arcjet({
    ],
 });
 
-async function existingMiddleware(req : NextRequest){
-    const {getClaim} = getKindeServerSession();
-    const orgCode = await getClaim('org_code')
 
+async function existingMiddleware(req: NextRequest){
+    const anyReq =req as {
+
+        nextUrl : NextRequest["nextUrl"];
+        kindeAuth? : {token?: any; user?: any};
+    };
 
     const url = req.nextUrl;
+    const orgCode = anyReq.kindeAuth?.user?.org_code || anyReq.kindeAuth?.token?.org_code || anyReq.kindeAuth?.token?.claims?.org_code ;
 
-    if(url.pathname.startsWith('/workspace') && !url.pathname.includes(orgCode?.value || '')){
-        url.pathname = `/workspace/${orgCode?.value}`;
+     if(url.pathname.startsWith('/workspace') && !url.pathname.includes(orgCode || '')){
+        url.pathname = `/workspace/${orgCode}`;
         return NextResponse.redirect(url);
     }
     return NextResponse.next();
+
+
+     
 }
 
-export default createMiddleware(aj, existingMiddleware);
+export default createMiddleware(aj
+    , withAuth(existingMiddleware, {
+    publicPaths: ["/", "/api/uploadthing"] 
+
+}) as NextMiddleware
+);
 
 
 export const config = {
