@@ -22,7 +22,7 @@ const getSession = async () =>{
     const {getUser} = getKindeServerSession()
 
     const user = await getUser();
-
+1
     return {
         user, 
     }

@@ -5,10 +5,11 @@ import { requiredAuthMiddleware } from "../middlewares/auth";
 import { base } from "../middlewares/base";
 import { requiredWorkspaceMiddleware } from "../middlewares/workspace";
 import prisma from "@/lib/db";
-import { createMessageSchema } from "../schemas/message";
+import { createMessageSchema, updateMessageSchema } from "../schemas/message";
 import { getAvatar } from "@/lib/get-avatar";
 import { Message } from "@/lib/generated/prisma/client/client";
 import { readSecurityMiddleware } from "../middlewares/arcjet/read";
+import { error } from "console";
 
 export const createMessage = base
 .use(requiredAuthMiddleware)
@@ -113,6 +114,71 @@ export const listMessages = base
 
         items : messages,
         nextCursor
+    }
+})
+
+export const updateMessage = base
+.use(requiredAuthMiddleware)
+.use(requiredWorkspaceMiddleware)
+.use(standardSecurityMiddleware)
+.use(writeSecurityMiddleware)
+.route({
+    method:'PUT',
+    path:'/messages/:messageId',
+    summary: 'Update a message',
+    tags: ["Messages"]
+})
+.input(updateMessageSchema)
+.output(z.object({
+    message : z.custom<Message>(),
+    canEdit : z.boolean()
+    
+}))
+.handler(async ({input, context,errors}) => {
+    const message = await prisma.message.findFirst({
+        where:{
+            //find allmessage from a spesfic messageid, and 
+            //want to verfiy that it belong o he orgnantiztopn with the channel
+            id: input.messageId,
+            channel: {
+                workspaceId: context.workspace.orgCode
+            },
+        },
+        select:{
+            //just need to authorId, and the id
+            id: true,
+            authorId: true,
+        },
+    });
+    if(!message){
+        throw errors.NOT_FOUND();
+    }
+
+    //verfiy that the authorID matches the userID: so only yhe creator shoud edit
+    if(message.authorId !== context.user.id) {
+
+        //a user trying to edit amessage that is not theirs
+        throw errors.FORBIDDEN();
+
+
+    }
+
+
+    //if we get here: the user is verified!
+    const updated = await prisma.message.update({
+        where:{
+            id: input.messageId
+        },
+        data:{
+            content: input.content
+        }
+    });
+
+    //return he data:
+    return{
+        message: updated,
+        // a boolean inticading does the user can edit 
+        canEdit: updated.authorId === context.user.id
     }
 })
 
