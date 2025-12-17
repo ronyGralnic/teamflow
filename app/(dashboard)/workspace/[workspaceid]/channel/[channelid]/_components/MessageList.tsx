@@ -2,7 +2,7 @@
 
 import { Avatar } from "@/components/ui/avatar"
 import { MessageItem } from "./message/MessageItem"
-import { useInfiniteQuery, useQuery } from "@tanstack/react-query"
+import { useInfiniteQuery, useQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { orpc } from "@/lib/orpc"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"
@@ -42,6 +42,9 @@ export function MessageList(){
         staleTime : 30_000,
         refetchOnWindowFocus : false,
     });
+
+    const {data : {user}} = useSuspenseQuery(orpc.workspace.list.queryOptions())
+    
 
 
     //scroll to the botom when messages first loaded
@@ -196,7 +199,7 @@ export function MessageList(){
                     </div>
                 ):(
                 items?.map((message) => (
-                    <MessageItem key={message.id} message={message}/>
+                    <MessageItem key={message.id} message={message} currentUserId={user.id}/>
                 ))
                 )}
                 <div ref={bottomRef}></div>

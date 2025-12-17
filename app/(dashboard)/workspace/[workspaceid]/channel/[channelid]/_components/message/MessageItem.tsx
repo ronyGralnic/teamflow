@@ -3,12 +3,18 @@ import { Message } from "@/lib/generated/prisma/client/client";
 import { getAvatar } from "@/lib/get-avatar";
 import Image from "next/image";
 import image from "next/image";
+import { MesssageHoverToolbar } from "../toolbar";
+import { useState } from "react";
+import { EditMessage } from "../toolbar/EditMessage";
 
 interface iAppProps{
-    message : Message
+    message : Message;
+    currentUserId : string;
 }
 
-export function MessageItem({message} : iAppProps){
+export function MessageItem({message, currentUserId} : iAppProps){
+
+    const [isEditing, setIsEditing] = useState(false);
     return(
         <div className="flex space-x-3 relative p-3 rounded-lg group hover:bg-muted/50">
             <Image src={getAvatar(message.authorAvatar, message.authorEmail)} alt="User Avatar" width={32} height={32}
@@ -35,7 +41,12 @@ export function MessageItem({message} : iAppProps){
                     </p>
 
                 </div>
-                <SafeContent className="text-sm break-words prose dark:prose-invert max-w-none marker:text-primary" content={JSON.parse(message.content)}/>
+                
+                    {isEditing ? (
+                        <EditMessage message={message} onCancel={() => setIsEditing(false)} onSave={() => setIsEditing(false)}/>
+                    ) :(
+                        <>
+                        <SafeContent className="text-sm break-words prose dark:prose-invert max-w-none marker:text-primary" content={JSON.parse(message.content)}/>
                 
                 {message.imageUrl && (
                 <div className="mt-3">
@@ -43,8 +54,11 @@ export function MessageItem({message} : iAppProps){
                 
                 </div>
                 )}
-                    
+                        </>
+                    )}
             </div>
+
+            <MesssageHoverToolbar messageId={message.id} canEdit={message.authorId === currentUserId} onEdit={() => setIsEditing(true)}/>
         </div>
     )
 }
