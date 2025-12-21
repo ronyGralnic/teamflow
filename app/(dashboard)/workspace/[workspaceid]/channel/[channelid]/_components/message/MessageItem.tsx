@@ -4,17 +4,39 @@ import { getAvatar } from "@/lib/get-avatar";
 import Image from "next/image";
 import image from "next/image";
 import { MesssageHoverToolbar } from "../toolbar";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { EditMessage } from "../toolbar/EditMessage";
+import { MessageSquare } from "lucide-react";
+import { messageListItem } from "@/lib/query/types";
+import { useThread } from "@/providers/ThreadProvider";
+import { orpc } from "@/lib/orpc";
+import { useQueryClient } from "@tanstack/react-query";
 
 interface iAppProps{
-    message : Message;
+    message : messageListItem;
     currentUserId : string;
 }
 
 export function MessageItem({message, currentUserId} : iAppProps){
 
     const [isEditing, setIsEditing] = useState(false);
+
+    const {openThread} = useThread()
+    const queryClient = useQueryClient();
+
+    const preFetchThread = useCallback(()=>{
+        const options = orpc.message.thread.list.queryOptions({
+            input: {
+                messageId : message.id,
+
+            },
+            
+            });
+            queryClient.prefetchQuery({
+                ...options,staleTime: 60_000
+
+            }).catch (() => {});
+    }, [message.id,queryClient])
     return(
         <div className="flex space-x-3 relative p-3 rounded-lg group hover:bg-muted/50">
             <Image src={getAvatar(message.authorAvatar, message.authorEmail)} alt="User Avatar" width={32} height={32}
@@ -54,6 +76,14 @@ export function MessageItem({message, currentUserId} : iAppProps){
                 
                 </div>
                 )}
+
+                {message.repliesCount > 0 && (
+                    <button type="button" className="mt-1 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-border cursor-pointer" onClick={() => openThread(message.id)} onMouseEnter={preFetchThread} onFocus={preFetchThread}>
+                        <MessageSquare className="size-3.5"/>
+                        <span>{message.repliesCount} {message.repliesCount === 1 ? 'reply' : 'replies'}</span>
+                        <span className="opacity-0 group-hover:opacity-100 transition-opacity ">View Thread</span>
+                    </button>
+                ) }
                         </>
                     )}
             </div>

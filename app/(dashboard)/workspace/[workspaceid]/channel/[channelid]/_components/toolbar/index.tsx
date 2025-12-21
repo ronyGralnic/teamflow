@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { useThread } from "@/providers/ThreadProvider";
 import { MessageSquareText, Pencil } from "lucide-react";
 
 interface toolbarProps{
@@ -8,6 +9,8 @@ interface toolbarProps{
 }
 
 export function MesssageHoverToolbar({canEdit, onEdit,messageId}:toolbarProps){
+    const {toggleThread} =useThread();
+    
     //render it on the right corner:
     return (
         <div className="
@@ -24,8 +27,8 @@ export function MesssageHoverToolbar({canEdit, onEdit,messageId}:toolbarProps){
                 <Pencil className="size-4" />
             </Button>}
 
-            <Button variant="ghost" size="icon">
-                <MessageSquareText className="size-4"/>
+            <Button variant="ghost" size="icon" onClick={ () => toggleThread(messageId)}>
+                <MessageSquareText className="size-4" />
             </Button>
             
         </div>
