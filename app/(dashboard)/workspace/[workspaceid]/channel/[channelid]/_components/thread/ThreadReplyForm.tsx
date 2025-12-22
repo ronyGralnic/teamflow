@@ -72,7 +72,7 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
 
                 type InfiniteMessages = InfiniteData<MessagePage>
 
-                const optimstic : Message={
+                const optimstic : messageListItem={
                     id:`opimstic-${crypto.randomUUID()}`,
                     content: data.content,
                     createdAt: new Date(),
@@ -83,7 +83,10 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
                     authorAvatar:getAvatar(user.picture, user.email!),
                     channelId : data.channelId,
                     threadId : data.threadId!,
-                    imageUrl: data.imageUrl ?? null
+                    imageUrl: data.imageUrl ?? null,
+
+                    reactions : [],
+                    replyCount: 0,
 
                 };
 
@@ -111,7 +114,7 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
                         const pages = old.pages.map((page)=>({
                             ...page,
                             items: page.items.map((m) =>(
-                                m.id === threadId ? {...m, repliesCount : m.repliesCount+1}: m
+                                m.id === threadId ? {...m, replyCount : m.replyCount+1}: m
                             ))
                         }))
 
