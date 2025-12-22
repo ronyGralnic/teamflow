@@ -1,8 +1,7 @@
 import { SafeContent } from "@/components/rich-text-editor/SafeContent";
-import { Message } from "@/lib/generated/prisma/client/client";
+
 import { getAvatar } from "@/lib/get-avatar";
 import Image from "next/image";
-import image from "next/image";
 import { MesssageHoverToolbar } from "../toolbar";
 import { useCallback, useState } from "react";
 import { EditMessage } from "../toolbar/EditMessage";
@@ -11,6 +10,8 @@ import { messageListItem } from "@/lib/query/types";
 import { useThread } from "@/providers/ThreadProvider";
 import { orpc } from "@/lib/orpc";
 import { useQueryClient } from "@tanstack/react-query";
+import { ReactionsBar } from "../reaction/ReactionsBar";
+
 
 interface iAppProps{
     message : messageListItem;
@@ -77,10 +78,13 @@ export function MessageItem({message, currentUserId} : iAppProps){
                 </div>
                 )}
 
-                {message.repliesCount > 0 && (
+                {/* Reactions */}
+                <ReactionsBar messageId={message.id} reactions={message.reactions} context={{type:'list', channelId:message.channelId!}}/>
+
+                {message.replyCount > 0 && (
                     <button type="button" className="mt-1 inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-border cursor-pointer" onClick={() => openThread(message.id)} onMouseEnter={preFetchThread} onFocus={preFetchThread}>
                         <MessageSquare className="size-3.5"/>
-                        <span>{message.repliesCount} {message.repliesCount === 1 ? 'reply' : 'replies'}</span>
+                        <span>{message.replyCount} {message.replyCount === 1 ? 'reply' : 'replies'}</span>
                         <span className="opacity-0 group-hover:opacity-100 transition-opacity ">View Thread</span>
                     </button>
                 ) }
@@ -91,4 +95,5 @@ export function MessageItem({message, currentUserId} : iAppProps){
             <MesssageHoverToolbar messageId={message.id} canEdit={message.authorId === currentUserId} onEdit={() => setIsEditing(true)}/>
         </div>
     )
-}
+};
+
