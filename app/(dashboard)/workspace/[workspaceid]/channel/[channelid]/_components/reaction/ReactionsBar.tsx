@@ -169,7 +169,7 @@ export function ReactionsBar({messageId, reactions, context}: ReactionsBarProps)
         //exsiting reacions and the emoji reaction picer
 
         <div className="mt-1 flex items-center gap-1">
-            {reactions.map((r)=> (
+            {reactions?.map((r)=> (
                 <Button key={r.emoji} type="button" variant="secondary" size="sm" className={cn("h-6 px-2 text-xs", r.reactedByMe && 'bg-primary/10 border-primary border')} onClick={()=> handleToggle(r.emoji)}>
                     <span>{r.emoji}</span>
                     <span>{r.count}</span>
