@@ -120,14 +120,27 @@ export const HeroHeader = () => {
                                     className: cn(isScrolled && "lg:hidden"),
 
                                     
-                                })}>Sign up</RegisterLink>
+                                })}
+                                authUrlParams={{
+                                    is_create_org: "true", 
+                                    org_name : 'My Workspace',
+                                    pricing_table_key: 'organization_plans',
+                                }}
+                                
+                                >Sign up</RegisterLink>
 
                                 <div className= {cn(isScrolled ? "lg:inline-flex": "hidden")}>
                                    <RegisterLink className={buttonVariants ({
                                     size:"sm",
 
                                     
-                                })}>Get Started</RegisterLink>
+                                })}
+                                authUrlParams={{
+                                    is_create_org: "true", 
+                                    org_name : 'My Workspace',
+                                    pricing_table_key: 'organization_plans',
+                                }}
+                                >Get Started</RegisterLink>
                                 </div>
                                  
                                 {/*<Button
