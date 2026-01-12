@@ -12,6 +12,7 @@ import { KindeUser } from '@kinde-oss/kinde-auth-nextjs'
 import { Skeleton } from '@/components/ui/skeleton'
 import { ThreadSidebar } from './_components/thread/ThreadSidebar'
 import { ThreadProvider, useThread } from '@/providers/ThreadProvider'
+import { ChannelReattimeProvider } from '@/providers/ChannelRealtimeProvider'
 
 const ChannelPageMain = () => {
   const  {channelid} = useParams<{channelid : string}>();
@@ -29,7 +30,8 @@ const ChannelPageMain = () => {
   }
 
   return (
-    <div className="flex h-screen w-full">
+    <ChannelReattimeProvider channelId={channelid}>
+      <div className="flex h-screen w-full">
         {/* Main Channel Area */}
         <div className="flex flex-col flex-1 min-w-0">
 
@@ -69,6 +71,7 @@ const ChannelPageMain = () => {
         )}
        
     </div>
+    </ChannelReattimeProvider>
   )
 }
 
