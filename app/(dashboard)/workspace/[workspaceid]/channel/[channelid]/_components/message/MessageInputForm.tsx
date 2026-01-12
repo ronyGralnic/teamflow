@@ -16,6 +16,7 @@ import { Message } from "@/lib/generated/prisma/client/client";
 import { userAgent } from "next/server";
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { getAvatar } from "@/lib/get-avatar";
+import { useChannelRealtime } from "@/providers/ChannelRealtimeProvider";
 
 
 interface iAppProps {
@@ -39,6 +40,12 @@ export function MessageInputForm({channelId, user}: iAppProps){
     const [editorKey, setEditorKey] = useState(0);
 
     const upload = useAttachmentUpload();
+
+    const {send} = useChannelRealtime();
+
+
+
+
 
 
     
@@ -146,12 +153,14 @@ export function MessageInputForm({channelId, user}: iAppProps){
                         upload.clear();
                         setEditorKey((k) => k+1);
 
+                        
+
 
                         return  {...old, pages: updatedPages}
                     }
                 )
                 
-
+                send({type:'message:created', payload:{message:data}})
 
                 return toast.success("message created successfully");
 

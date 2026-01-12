@@ -16,6 +16,7 @@ import { Message } from "@/lib/generated/prisma/client/client"
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs"
 import { getAvatar } from "@/lib/get-avatar"
 import { messageListItem } from "@/lib/query/types"
+import { useChannelRealtime } from "@/providers/ChannelRealtimeProvider"
 
 interface ThreadReplyFormProps{
     threadId : string;
@@ -32,6 +33,8 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
     const [editorKey, setEditorKey] = useState(0)
 
     const queryClient =useQueryClient()
+
+    const {send} =useChannelRealtime()
 
     const form = useForm({
         resolver : zodResolver(createMessageSchema),
@@ -144,6 +147,11 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
 
                 upload.clear();
                 setEditorKey((k)=> k+1);
+
+                send({
+                    type : 'message:replies:increment',
+                    payload: {messageId:threadId, delta:1}
+                })
                 return toast.success("Message Created Successfully!");
 
             },

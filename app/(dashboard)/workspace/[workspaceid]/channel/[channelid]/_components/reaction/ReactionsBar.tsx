@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import { messageListItem } from "@/lib/query/types";
+import { useChannelRealtime } from "@/providers/ChannelRealtimeProvider";
 
 
 
@@ -30,6 +31,8 @@ export function ReactionsBar({messageId, reactions, context}: ReactionsBarProps)
 
     const {channelId} = useParams<{channelId: string}>()
     const queryClient = useQueryClient();
+
+    const {send} = useChannelRealtime()
 
     const toggleMutation = useMutation(
 
@@ -137,7 +140,11 @@ export function ReactionsBar({messageId, reactions, context}: ReactionsBarProps)
         },
 
 
-            onSuccess: () => {
+            onSuccess: (data) => {
+                send({
+                    type: 'reaction:updated',
+                    payload: data,
+                })
                 return toast.success('Emoji Added!')
             },
 

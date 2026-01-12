@@ -1,15 +1,19 @@
 import { AvatarFallback } from "@/components/ui/avatar"
 import { getAvatar } from "@/lib/get-avatar"
+import { cn } from "@/lib/utils"
 import { organization_user } from "@kinde/management-api-js"
 import { Avatar } from "@radix-ui/react-avatar"
 import Image from "next/image"
 
 interface MemberItemProps{
-    member: organization_user
+    member: organization_user;
+    isOnline? : boolean;
 }
  
 
-export function MemberItem({member}: MemberItemProps){
+export function MemberItem({member, isOnline}: MemberItemProps){
+
+    const isAdmin = member.roles?.includes("admin")
 
     return(
 
@@ -22,16 +26,38 @@ export function MemberItem({member}: MemberItemProps){
                             {member.full_name?.charAt(0).toUpperCase()}
                         </AvatarFallback>
                     </Avatar>
+                    <div className={cn(
+                                            "absolute bottom-0 right-0 size-2.5 rounded-full border-2 border-background",  
+                                            isOnline ? 'bg-green-500 ' : "bg-gray-400"
+                                        )}></div>
                 </div>
                 {/*Member Info */}
                 <div className="flex-1 min-w-0">
 
-                    <div className="flex item-center justify-between">
+                    {isAdmin ? (
+                        <div className="flex item-center justify-between">
                         <p className="text-sm font-medium truncate">{member.full_name}</p>
                         <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-400/10 dark:text-blue-400 dark::ring-blue-400/30" >
                             Admin
                         </span>
                     </div >
+                    )  : (
+                        <div className="flex item-center justify-between">
+                        <p className="text-sm font-medium truncate">{member.full_name}</p>
+                        <span className="inline-flex items-center rounded-md bg-grey-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-grey-700/10 dark:bg-grey-400/10 dark:text-grey-400 dark::ring-grey-400/30" >
+                            User
+                        </span>
+                        </div>
+                    )}
+
+
+
+                    {/*<div className="flex item-center justify-between">
+                        <p className="text-sm font-medium truncate">{member.full_name}</p>
+                        <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-400/10 dark:text-blue-400 dark::ring-blue-400/30" >
+                            Admin
+                        </span>
+                    </div >*/}
                     <p className="text-xs text-muted-foreground truncate">{member.email}</p>
                 </div>
             </div>
