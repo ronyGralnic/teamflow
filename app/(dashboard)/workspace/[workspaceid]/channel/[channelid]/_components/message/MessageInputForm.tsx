@@ -87,6 +87,7 @@ export function MessageInputForm({channelId, user}: iAppProps){
                     authorName : user.given_name ?? 'John Doe',
                     authorAvatar : getAvatar(user.picture, user.email!),
                     channelId: channelId,
+                    threadId: null,
 
                 };
                  
