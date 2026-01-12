@@ -6,7 +6,6 @@ import { orpc } from "@/lib/orpc";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTitle, DialogTrigger } from "@radix-ui/react-dialog";
 import { useMutation } from "@tanstack/react-query";
-import { error } from "console";
 import { UserPlus } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";

@@ -8,7 +8,7 @@ import { inviteMemberSchema } from "../schemas/member";
 import { init, organization_user, Organizations, Users } from "@kinde/management-api-js";
 import { getAvatar } from "@/lib/get-avatar";
 import { readSecurityMiddleware } from "../middlewares/arcjet/read";
-import { error } from "console";
+
 
 export const inviteMember = base
 .use(requiredAuthMiddleware)

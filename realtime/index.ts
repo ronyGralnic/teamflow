@@ -1,8 +1,6 @@
 // index.ts
 
-import { ChannelEventsSchema, PresenceMessage, PresenceMessageSchema, UserSchema } from "@/app/schemas/realitme";
-import { type } from "@kinde/management-api-js";
-import { connection } from "next/server";
+import { ChannelEventsSchema, PresenceMessageSchema, ThreadEventSchema, UserSchema } from "@/app/schemas/realitme";
 import { Connection, routePartykitRequest, Server } from "partyserver";
 import z from "zod";
 
@@ -88,6 +86,18 @@ export class Chat extends Server {
           this.broadcast(payload, [connection.id])
           return;
         }
+
+        //Thread events
+        const ThreadEvent = ThreadEventSchema.safeParse(parsed);
+
+        if(ThreadEvent.success){
+          const payload = JSON.stringify(ThreadEvent.data);
+
+          this.broadcast(payload, [connection.id]);
+
+          return;
+        }
+
     } catch (error){
         console.log("Error Processing message", error);
     }

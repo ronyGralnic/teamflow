@@ -1,4 +1,4 @@
-import z, { emoji, string } from "zod";
+import z from "zod";
 import { standardSecurityMiddleware } from "../middlewares/arcjet/standard";
 import { writeSecurityMiddleware } from "../middlewares/arcjet/write";
 import { requiredAuthMiddleware } from "../middlewares/auth";
@@ -9,7 +9,7 @@ import { createMessageSchema, GroupedReactionSchema, GroupedReactionSchemaType, 
 import { getAvatar } from "@/lib/get-avatar";
 import { Message } from "@/lib/generated/prisma/client/client";
 import { readSecurityMiddleware } from "../middlewares/arcjet/read";
-import { error } from "console";
+
 import { messageListItem } from "@/lib/query/types";
 
 function groupReactions(

@@ -1,9 +1,9 @@
-import { Button } from '@/components/ui/button';
+
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from '@/components/ui/empty';
 import { client } from '@/lib/orpc'
 import { Cloud } from 'lucide-react';
 import { redirect } from 'next/navigation';
-import React from 'react'
+
 import { CreateNewChannel } from './_components/CreateNewChannel';
 
 interface iAppProps {

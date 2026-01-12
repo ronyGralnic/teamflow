@@ -1,8 +1,8 @@
 "use client"
 
-import { Avatar } from "@/components/ui/avatar"
+
 import { MessageItem } from "./message/MessageItem"
-import { useInfiniteQuery, useQuery, useSuspenseQuery } from "@tanstack/react-query"
+import { useInfiniteQuery, useSuspenseQuery } from "@tanstack/react-query"
 import { orpc } from "@/lib/orpc"
 import { useParams } from "next/navigation"
 import { useEffect, useMemo, useRef, useState } from "react"

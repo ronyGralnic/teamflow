@@ -1,9 +1,9 @@
 "use client"
 
 import { createMessageSchema, CreateMessageSchemaType,  } from "@/app/schemas/message";
-import { RichTextEditor } from "@/components/rich-text-editor/Editor";
+
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { MessageComposer } from "./MessageComposer";
@@ -13,7 +13,7 @@ import { toast } from "sonner";
 import { useState } from "react";
 import { useAttachmentUpload } from "@/hooks/use-attachment-upload";
 import { Message } from "@/lib/generated/prisma/client/client";
-import { userAgent } from "next/server";
+
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { getAvatar } from "@/lib/get-avatar";
 import { useChannelRealtime } from "@/providers/ChannelRealtimeProvider";

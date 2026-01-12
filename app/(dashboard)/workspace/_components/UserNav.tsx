@@ -2,14 +2,13 @@
 
 import { AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuSubContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { getAvatar } from "@/lib/get-avatar";
 import { orpc } from "@/lib/orpc";
 import { LogoutLink, PortalLink} from "@kinde-oss/kinde-auth-nextjs/components";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { CreditCard, LogOut, User } from "lucide-react";
-import { email } from "zod";
 import Image from "next/image";
 
 

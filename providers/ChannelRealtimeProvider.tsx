@@ -24,7 +24,7 @@ export function ChannelReattimeProvider({channelId, children}:ChannelRealtimePro
     const queryClient = useQueryClient()
     
     const socket = usePartySocket({
-        host:'http://127.0.0.1:8787',
+        host:'https://teamflow-chat-realtime.ronygral1.workers.dev',
         room : `channel-${channelId}`,
         party:"chat",
         onMessage(e){
@@ -125,7 +125,7 @@ export function ChannelReattimeProvider({channelId, children}:ChannelRealtimePro
                         }));
                         return {...old, pages};
                     }
-                    
+                     
                 
                 ))
                 return;

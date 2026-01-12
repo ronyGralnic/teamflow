@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import { messageListItem } from "@/lib/query/types";
 import { useChannelRealtime } from "@/providers/ChannelRealtimeProvider";
+import { useOptionalThreadRealtime } from "@/providers/ThreadRealtimeProvider";
 
 
 
@@ -33,6 +34,8 @@ export function ReactionsBar({messageId, reactions, context}: ReactionsBarProps)
     const queryClient = useQueryClient();
 
     const {send} = useChannelRealtime()
+
+    const threadRealtime = useOptionalThreadRealtime()
 
     const toggleMutation = useMutation(
 
@@ -144,7 +147,16 @@ export function ReactionsBar({messageId, reactions, context}: ReactionsBarProps)
                 send({
                     type: 'reaction:updated',
                     payload: data,
-                })
+                });
+
+                if (context && context.type === "thread" && threadRealtime){
+                    const threadId = context.threadId;
+
+                    threadRealtime.send({
+                        type:"thread:reaction:updated",
+                        payload:{...data, threadId},
+                    })
+                }
                 return toast.success('Emoji Added!')
             },
 

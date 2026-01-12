@@ -6,13 +6,13 @@ import { base } from "../middlewares/base";
 import { requiredWorkspaceMiddleware } from "../middlewares/workspace";
 import { ChannelNameSchema } from "../schemas/channel";
 import prisma from "@/lib/db";
-;
+
 
 import { Channel } from "@/lib/generated/prisma/client/client";
 import { init, organization_user, Organizations } from "@kinde/management-api-js";
 import { KindeOrganization, KindeUser } from "@kinde-oss/kinde-auth-nextjs";
 import { readSecurityMiddleware } from "../middlewares/arcjet/read";
-import { channel } from "diagnostics_channel";
+
 
 
 

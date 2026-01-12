@@ -1,4 +1,4 @@
-import React from 'react'
+
 import Link from 'next/link'
 import { ArrowRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
@@ -278,12 +278,12 @@ export default function HeroSection() {
                             </div>
 
                             <div className="flex">
-                                <img
+                                <Image
                                     className="mx-auto h-6 w-fit dark:invert"
                                     src="https://html.tailus.io/blocks/customers/openai.svg"
                                     alt="OpenAI Logo"
                                     height="24"
-                                    width="auto"
+                                    
                                 />
                             </div>
                         </div>

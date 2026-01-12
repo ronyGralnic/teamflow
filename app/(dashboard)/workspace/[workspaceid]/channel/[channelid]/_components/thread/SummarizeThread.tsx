@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Sparkle, Sparkles } from "lucide-react";
+import { Sparkles } from "lucide-react";
 import { useChat } from '@ai-sdk/react';
 import { eventIteratorToStream } from "@orpc/client";
 import { client } from "@/lib/orpc";

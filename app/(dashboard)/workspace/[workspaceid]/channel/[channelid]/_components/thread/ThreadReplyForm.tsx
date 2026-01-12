@@ -8,15 +8,14 @@ import { useForm } from "react-hook-form"
 import { MessageComposer } from "../message/MessageComposer"
 import { useAttachmentUpload } from "@/hooks/use-attachment-upload"
 import { useEffect, useState } from "react"
-import { InfiniteData, QueryClient, useMutation, useQueryClient } from "@tanstack/react-query"
+import { InfiniteData, useMutation, useQueryClient } from "@tanstack/react-query"
 import { orpc } from "@/lib/orpc"
 import { toast } from "sonner"
-import { ImageUp } from "lucide-react"
-import { Message } from "@/lib/generated/prisma/client/client"
 import { KindeUser } from "@kinde-oss/kinde-auth-nextjs"
 import { getAvatar } from "@/lib/get-avatar"
 import { messageListItem } from "@/lib/query/types"
 import { useChannelRealtime } from "@/providers/ChannelRealtimeProvider"
+import { useThreadRealtime } from "@/providers/ThreadRealtimeProvider"
 
 interface ThreadReplyFormProps{
     threadId : string;
@@ -36,7 +35,9 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
 
     const {send} =useChannelRealtime()
 
-    const form = useForm({
+    const {send : sendThread} = useThreadRealtime()
+
+    const form = useForm({ 
         resolver : zodResolver(createMessageSchema),
         defaultValues: {
   content: "",
@@ -134,7 +135,7 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
             },
 
 
-            onSuccess : (_data, _vars, ctx) => {
+            onSuccess : (data, _vars, ctx) => {
 
 
                 queryClient.invalidateQueries({queryKey: ctx.listOptions.queryKey})
@@ -147,6 +148,11 @@ export function  ThreadReplyForm({threadId, user}: ThreadReplyFormProps){
 
                 upload.clear();
                 setEditorKey((k)=> k+1);
+
+                sendThread({
+                    type:"thread:reply:created",
+                    payload: {reply:data},
+                })
 
                 send({
                     type : 'message:replies:increment',

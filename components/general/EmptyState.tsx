@@ -1,4 +1,4 @@
-import { Cloud, PlusCircle, PlusIcon } from "lucide-react";
+import { Cloud, PlusCircle } from "lucide-react";
 import { Empty, EmptyContent, EmptyDescription, EmptyHeader, EmptyMedia, EmptyTitle } from "../ui/empty";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";
