@@ -1,36 +1,105 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Team Flow 🚀
 
-## Getting Started
+**A real-time collaboration SaaS for teams, featuring AI-powered threads, secure authentication, and performance-optimized architecture.**
 
-First, run the development server:
+Once running, you can:
+
+Create organizations and invite team members
+
+Start threads with AI summarization
+
+React with emojis, edit messages, and upload images
+
+Access self-serve billing portal
+
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-blue?logo=tailwind-css)](https://tailwindcss.com)
+[![Vercel](https://img.shields.io/badge/Deployment-Vercel-purple?logo=vercel)](https://vercel.com/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-blue?logo=prisma)](https://prisma.io)
+[![Neon](https://img.shields.io/badge/Database-Neon-lightblue)](https://neon.tech/)
+[![Kinde](https://img.shields.io/badge/Auth-Kinde-orange)](https://dub.sh/HZ8cQcX)
+[![Arcjet](https://img.shields.io/badge/Security-Arcjet-red)](https://launch.arcjet.com/teiuKfN)
+
+---
+
+## 📑 Table of Contents
+
+- [Overview](#overview)  
+- [Features](#features)  
+- [Tech Stack](#tech-stack)  
+- [Installation](#installation)  
+- [Demo Video](#demo-video)  
+- [Usage Example](#usage-example)  
+- [What I Learned](#what-i-learned)  
+- [Resources](#resources)  
+- [License](#license)
+
+---
+
+## 📌 Overview
+
+Team Flow is a modern, real-time collaboration platform built for organizations. It integrates secure authentication, AI-driven thread summarization, real-time messaging, and billing, providing teams with a seamless and efficient workflow experience.
+
+---
+
+## 🚀 Features
+
+**Core Features:**
+
+- 🌐 Next.js 15  
+- 🎨 Tailwind CSS & Shadcn UI  
+- 🔒 Authentication with Kinde (OAuth & Magic Links)  
+- 🛡️ Arcjet Security (XSS, SQL injection protection, etc.)  
+- 🧠 Organizations & Teams  
+- 💵 Billing with monthly tiers  
+- 🚫 Rate limiting  
+- 👾 Custom rich text editor  
+- 🚀 AI thread summarization & composer  
+- 👨‍🚀 Thread support  
+- 🏎️ Realtime with Cloudflare Durable Objects  
+- 🫣 Emoji reactions  
+- 🖼️ Image uploads with presigned URLs  
+- 🦾 Channels & Realtime presence  
+- 👥 Invite members  
+- 📜 Reverse infinite scroll  
+- 🖊️ Edit messages  
+- 💂 Self-serve customer portal  
+- 🧮 Neon Postgres database with Prisma ORM  
+- 🚀 Deployed on Vercel  
+
+**Additional Features:**
+
+- ✅ Performance-optimized architecture  
+- ✅ Clean, secure, and maintainable codebase  
+- ✅ Data Access Layer & DTO  
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js 15, Tailwind CSS, Shadcn UI  
+- **Backend:** Node.js, oRPC, Partykit  
+- **Database:** Neon Postgres, Prisma ORM  
+- **Auth:** Kinde (OAuth & Magic Links)  
+- **Deployment:** Vercel  
+- **Realtime / Messaging:** Cloudflare Durable Objects  
+- **Security:** Arcjet  
+
+---
+
+## ⚙️ Installation
+
+Install dependencies and Shadcn/UI components:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+git clone https://github.com/ronyGralnic/team-flow.git
+cd team-flow
+pnpm install
+
+# Install Shadcn/UI components
+pnpm dlx shadcn@latest add tooltip toggle sonner skeleton popover label input form dropdown-menu dialog collapsible card button avatar
+
+# Start the development server
 pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
