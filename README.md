@@ -2,16 +2,6 @@
 
 **A real-time collaboration SaaS for teams, featuring AI-powered threads, secure authentication, and performance-optimized architecture.**
 
-Once running, you can:
-
-Create organizations and invite team members
-
-Start threads with AI summarization
-
-React with emojis, edit messages, and upload images
-
-Access self-serve billing portal
-
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.3-blue?logo=tailwind-css)](https://tailwindcss.com)
 [![Vercel](https://img.shields.io/badge/Deployment-Vercel-purple?logo=vercel)](https://vercel.com/)
@@ -28,7 +18,7 @@ Access self-serve billing portal
 - [Features](#features)  
 - [Tech Stack](#tech-stack)  
 - [Installation](#installation)  
-- [Usage Example](#usage-example)   
+- [Usage Example](#usage-example)  
 - [Resources](#resources)  
 - [License](#license)
 
@@ -42,12 +32,12 @@ Team Flow is a modern, real-time collaboration platform built for organizations.
 
 ## 🚀 Features
 
-**Core Features:**
+### Core Features
 
 - 🌐 Next.js 15  
 - 🎨 Tailwind CSS & Shadcn UI  
 - 🔒 Authentication with Kinde (OAuth & Magic Links)  
-- 🛡️ Arcjet Security (XSS, SQL injection protection, etc.)  
+- 🛡️ Arcjet Security  
 - 🧠 Organizations & Teams  
 - 💵 Billing with monthly tiers  
 - 🚫 Rate limiting  
@@ -57,15 +47,15 @@ Team Flow is a modern, real-time collaboration platform built for organizations.
 - 🏎️ Realtime with Cloudflare Durable Objects  
 - 🫣 Emoji reactions  
 - 🖼️ Image uploads with presigned URLs  
-- 🦾 Channels & Realtime presence  
+- 🦾 Channels & realtime presence  
 - 👥 Invite members  
 - 📜 Reverse infinite scroll  
 - 🖊️ Edit messages  
 - 💂 Self-serve customer portal  
-- 🧮 Neon Postgres database with Prisma ORM  
+- 🧮 Neon Postgres + Prisma ORM  
 - 🚀 Deployed on Vercel  
 
-**Additional Features:**
+### Additional Features
 
 - ✅ Performance-optimized architecture  
 - ✅ Clean, secure, and maintainable codebase  
@@ -78,66 +68,61 @@ Team Flow is a modern, real-time collaboration platform built for organizations.
 - **Frontend:** Next.js 15, Tailwind CSS, Shadcn UI  
 - **Backend:** Node.js, oRPC, Partykit  
 - **Database:** Neon Postgres, Prisma ORM  
-- **Auth:** Kinde (OAuth & Magic Links)  
-- **Deployment:** Vercel  
-- **Realtime / Messaging:** Cloudflare Durable Objects  
+- **Authentication:** Kinde  
+- **Realtime:** Cloudflare Durable Objects  
 - **Security:** Arcjet  
+- **Deployment:** Vercel  
 
 ---
 
 ## ⚙️ Installation
-
-Install dependencies and Shadcn/UI components:
 
 ```bash
 git clone https://github.com/ronyGralnic/team-flow.git
 cd team-flow
 pnpm install
 
-# Install Shadcn/UI components
 pnpm dlx shadcn@latest add tooltip toggle sonner skeleton popover label input form dropdown-menu dialog collapsible card button avatar
 
-# Start the development server
 pnpm dev
+```
+
+---
 
 ## 💻 Usage Example
 
-
 Once running, you can:
 
-Create organizations and invite team members
+- Create organizations and invite team members  
+- Start threads with AI summarization  
+- React with emojis, edit messages, and upload images  
+- Access the self-serve billing portal  
 
-Start threads with AI summarization
+Open in browser:
 
-React with emojis, edit messages, and upload images
+```
+http://localhost:3000
+```
 
-Access self-serve billing portal
-
-
+---
 
 ## 🔗 Resources
 
-Next.js – https://nextjs.org
+- Next.js – https://nextjs.org  
+- Arcjet – https://launch.arcjet.com/teiuKfN  
+- Kinde – https://dub.sh/HZ8cQcX  
+- Tailwind CSS – https://tailwindcss.com  
+- Shadcn UI – https://ui.shadcn.com  
+- Prisma – https://prisma.io  
+- Neon – https://neon.tech  
+- Vercel – https://vercel.com  
+- Zod – https://zod.dev  
+- Partykit – https://www.partykit.io  
+- oRPC – https://orpc.unnoq.com  
+- Uploadthing – https://uploadthing.com  
 
-Arcjet – https://launch.arcjet.com/teiuKfN
+---
 
-Kinde – https://dub.sh/HZ8cQcX
+## 📄 License
 
-Tailwind CSS – https://tailwindcss.com
-
-Shadcn UI – https://ui.shadcn.com
-
-Prisma – https://prisma.io
-
-Neon – https://neon.tech
-
-Vercel – https://vercel.com
-
-Zod – https://zod.dev
-
-Partykit – https://www.partykit.io
-
-oRPC – https://orpc.unnoq.com
-
-Uploadthing – https://uploadthing.com
-
+MIT License
