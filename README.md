@@ -28,9 +28,7 @@ Access self-serve billing portal
 - [Features](#features)  
 - [Tech Stack](#tech-stack)  
 - [Installation](#installation)  
-- [Demo Video](#demo-video)  
-- [Usage Example](#usage-example)  
-- [What I Learned](#what-i-learned)  
+- [Usage Example](#usage-example)   
 - [Resources](#resources)  
 - [License](#license)
 
@@ -102,4 +100,44 @@ pnpm dlx shadcn@latest add tooltip toggle sonner skeleton popover label input fo
 # Start the development server
 pnpm dev
 
+## 💻 Usage Example
+
+
+Once running, you can:
+
+Create organizations and invite team members
+
+Start threads with AI summarization
+
+React with emojis, edit messages, and upload images
+
+Access self-serve billing portal
+
+
+
+## 🔗 Resources
+
+Next.js – https://nextjs.org
+
+Arcjet – https://launch.arcjet.com/teiuKfN
+
+Kinde – https://dub.sh/HZ8cQcX
+
+Tailwind CSS – https://tailwindcss.com
+
+Shadcn UI – https://ui.shadcn.com
+
+Prisma – https://prisma.io
+
+Neon – https://neon.tech
+
+Vercel – https://vercel.com
+
+Zod – https://zod.dev
+
+Partykit – https://www.partykit.io
+
+oRPC – https://orpc.unnoq.com
+
+Uploadthing – https://uploadthing.com
 
